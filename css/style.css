@@ -1,0 +1,49 @@
+.card{
+    min-height: 550px;
+    border-radius: 30px!important;
+}
+.card-img-top{
+    border-radius: 30px!important;
+}
+#login-form{
+    margin-top: 10%;
+}
+.btn-200{
+    max-width: 200px;
+}
+.card-body{
+    min-height: 250px!important;
+}
+.bkg-img{
+    background-image: url(../assets/img/background.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.home-bkg{
+    background-image: url(../assets/img/home-bkg.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+.ctn-10{
+    padding-top: 10%;
+    padding-bottom: 10%;
+}
+.ctn-5{
+    padding-top: 0;
+    padding-bottom: 5%;
+}
+.text-center {
+    margin-bottom: 25px;
+}
+#checkout-details p{
+    background-color: white;
+    padding: 26px
+}
+.toast-close{
+    position: absolute!important;
+    right: 10px;
+}
+.list-2{
+    columns: 2;
+    width: 30%;
+}

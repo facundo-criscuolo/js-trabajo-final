@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "title": "iPhone 13 128GB",
+    "description": "Pantalla Super Retina XDR de 6.1 pulgadas.",
+    "price": 400000,
+    "quantity": 1,
+    "image": "../assets/img/iphone.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Macbook PRO 2022",
+    "description": "Chip M1 de Apple que permite un gran avance en el rendimiento de la CPU, GPU y aprendizaje automático.",
+    "price": 800000,
+    "image": "../assets/img/macbook.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Airpods PRO 3",
+    "description": "Cancelación Activa de Ruido que reduce el ruido exterior.",
+    "price": 90000,
+    "quantity": 1,
+    "image": "../assets/img/airpods.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Cargador iPhone",
+    "description": "Velocidad de carga rápida.",
+    "price": 20000,
+    "quantity": 1,
+    "image": "../assets/img/charger.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Funda Protectora iPhone 13",
+    "description": "Funda Protectora para iPhone 13",
+    "price": 3000,
+    "quantity": 1,
+    "image": "../assets/img/case.jpg"
+  }
+]
