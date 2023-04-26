@@ -6,6 +6,7 @@ function validatePassword(password) {
 
 function handleRegister(event) {
     event.preventDefault();
+    let form = document.getElementById("register-form");
     const name = document.querySelector('#register-name').value;
     const birthdate = document.querySelector('#register-birthdate').value;
     const email = document.querySelector('#register-email').value;
@@ -37,7 +38,28 @@ function handleRegister(event) {
 
     const user = { name, birthdate, email, password };
     localStorage.setItem('user', JSON.stringify(user));
-    showToast('Registro exitoso');
+        Toastify({
+            text: "Te registrasete exitosamente",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "right", 
+            stopOnFocus: true, 
+            style: {
+                background: "linear-gradient(to right, #020024, #00d4ff)",
+                borderRadius: ".5rem",
+                fontSize: "18px",
+                width: "400px",
+                textAlign: "center"
+            },
+            offset: {
+                x: '1.5rem', 
+                y: '1.5rem' 
+            },
+            onClick: function(){} 
+        }).showToast(); 
+
+        form.reset();
 }
 
 function handleLogin(event) {
@@ -67,11 +89,10 @@ function handleLogin(event) {
             },
             onClick: function(){} 
         }).showToast(); 
-        showToast('Correo electrónico o contraseña incorrectos');
         return;
     }
 
-    window.location.href = 'homepage.html';
+    window.location.href = 'pages/homepage.html';
 }
 
 function loadProducts() {
@@ -84,7 +105,6 @@ function loadProducts() {
       })
       .then(products => {
         renderProducts(products);  // Renderizar los productos cargados
-
       })
       .catch(error => {
         console.error('Error al cargar los productos:', error);
@@ -122,10 +142,11 @@ function addToCart(product) {
     cart.push(product);
      }
     renderCart();
-    }
+    ifEmptyInvoice();
+    ifEmptyCart();
+}
 
 function removeFromCart(productId) {
-
     Toastify({
         text: "Producto Eliminado del Carrito.",
         duration: 3000,
@@ -151,6 +172,8 @@ function removeFromCart(productId) {
         cart.splice(index, 1);
     }
     renderCart();
+    ifEmptyInvoice();
+    ifEmptyCart();
 }
 
 function renderCart() {
@@ -160,8 +183,8 @@ function renderCart() {
     cart.forEach(product => {
         const listItem = document.createElement('li');
         listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
-        // Mostrar la cantidad del producto en el carrito
-        listItem.innerHTML = `${product.title} - $${product.price} (Cantidad: ${product.quantity}) <button class="btn btn-outline-dark btn-block rounded-pill btn-200" onclick="removeFromCart(${product.id})">Eliminar</button>`;
+        // Mostrar la cantidad del producto en el cart
+        listItem.innerHTML = `<img class="img-cart" src="${product.image}" alt="${product.title}">${product.title} - $${product.price} (Cantidad: ${product.quantity}) <button class="btn btn-outline-dark btn-block rounded-pill btn-200" onclick="removeFromCart(${product.id})">Eliminar</button>`;
         cartList.appendChild(listItem);
       });
 }
@@ -189,6 +212,9 @@ function emptyCart() {
         },
         onClick: function(){} 
     }).showToast(); 
+
+    ifEmptyInvoice();
+    ifEmptyCart();
 }
 
 function checkout() {
@@ -198,15 +224,68 @@ function checkout() {
     cart.forEach(product => {
         const productTotal = product.price * product.quantity;
         total += productTotal;
-        details += `<p>Nombre: ${product.title}<br>Cantidad: ${product.quantity}<br>Precio: $${product.price}<br>Subtotal: $${productTotal}</p>`;
+        details += `<p class="invoice">Nombre: ${product.title}<br>Cantidad: ${product.quantity}<br>Precio: $${product.price}<br>Subtotal: $${productTotal}</p>`;
     });
 
-    const message = `<h3>Detalle de tu compra:</h3>${details}<h3>Total de tu compra: $${total}</h3>`;
+    const message = `<h3>Detalle de tu compra:</h3>${details}<h3 class="total">Total de tu compra: $${total}</h3>`;
 
     const checkoutDetailsElement = document.querySelector('#checkout-details');
     checkoutDetailsElement.innerHTML = message;
+
+    emptyCart();
 }
 
+function emptyInvoice() {
+    const checkoutDetailsElement = document.querySelector('#checkout-details');
+    checkoutDetailsElement.innerHTML = '';
+
+    Toastify({
+        text: "Compra Cancelada.",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+            background: "linear-gradient(to right, #020024, #00d4ff)",
+            borderRadius: ".5rem",
+            fontSize: "18px",
+            width: "400px"
+        },
+        offset: {
+            x: '1.5rem', 
+            y: '1.5rem' 
+        },
+        onClick: function(){} 
+    }).showToast(); 
+    
+    ifEmptyInvoice();
+}
+
+function ifEmptyCart() {
+    const cartList = document.querySelector('#empty-cart');
+    const cartButtons = document.querySelector('#cart-buttons');
+    
+   if (cart.length === 0){
+    cartList.innerHTML = '<p>Tu carrito se encuentra vacio.</p>';
+    cartButtons.classList.add('hide'); 
+   } else { 
+    cartList.innerHTML = ''; 
+    cartButtons.classList.remove('hide'); 
+   }
+}
+
+function ifEmptyInvoice(){
+    const invoiceButtons = document.querySelector('#invoice-buttons');
+    const invoiceDetailsElement = document.querySelector('#checkout-details');
+
+    if (invoiceDetailsElement.textContent.trim() === ''){
+        invoiceButtons.classList.add('hide');
+    } else {
+        invoiceButtons.classList.remove('hide');
+    }
+}
+    
 function renderProducts(products) {
     const productsContainer = document.querySelector('#products-container');
     productsContainer.innerHTML = '';
@@ -238,7 +317,14 @@ if (emptyCartButton) {
     emptyCartButton.addEventListener('click', emptyCart);
 }
 
+const emptyInvoiceButton = document.querySelector('#empty-invoice-button');
+if (emptyInvoiceButton) {
+    emptyInvoiceButton.addEventListener('click', emptyInvoice);
+}
+
 if (window.location.pathname.endsWith('pages/homepage.html')) {
+    ifEmptyInvoice();
     loadProducts();
     renderProducts();
+    ifEmptyCart();
 }

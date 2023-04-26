@@ -7,6 +7,7 @@
     <title>Tienda Virtual</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
@@ -37,6 +38,7 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <p class="menu-message"><i class="fa fa-arrow-left"></i> Click en el menú para ver info.</p>
         </nav>
       </div>
 </header>
@@ -48,15 +50,19 @@
         </div>
         <div class="mt-5">
             <h2>Carrito de compras</h2>
+            <div id="empty-cart"></div>
             <ul class="list-group" id="cart-list"></ul>
             <br>
-            <div class="cart-buttons">
+            <div class="cart-buttons" id="cart-buttons">
                 <button id="empty-button" class="btn btn-outline-dark btn-block rounded-pill btn-200">Vaciar carrito</button>
                 <button id="checkout-button" class="btn btn-outline-dark btn-block rounded-pill btn-200">Finalizar compra</button>
             </div>
         </div>
         <div class="mt-5">
             <div id="checkout-details"></div>
+            <div id="invoice-buttons">
+                <button id="empty-invoice-button" class="btn btn-outline-dark btn-block rounded-pill btn-200">Reiniciar compra</button>
+            </div>
         </div>
     </div>
     <script src="../js/index.js"></script>

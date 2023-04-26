@@ -39,6 +39,16 @@
     background-color: white;
     padding: 26px
 }
+#checkout-details .total{
+    text-align: right;
+    background-color: #343A3F;
+    color: white;
+    padding: 10px;
+}
+#checkout-details .invoice{
+    margin-bottom: 0px;
+    border-bottom: 1px solid gray;
+}
 .toast-close{
     position: absolute!important;
     right: 10px;
@@ -46,4 +56,21 @@
 .list-2{
     columns: 2;
     width: 30%;
+}
+.img-cart{
+    width: 100px;
+    height: 100px;
+}
+#empty-cart p{
+    padding: 40px;
+    text-align: center;
+    color: gray;
+}
+.hide{
+    display: none;
+}
+.menu-message{
+    color:white;
+    padding-right:75%;
+    margin:0
 }
